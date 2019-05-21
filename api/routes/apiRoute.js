@@ -12,9 +12,5 @@ module.exports = function(app) {
     .get(api.read_a_task)
     .put(api.update_a_task)
     .delete(api.delete_a_task);
-
-  app.route('/createWallet')
-    .post(api.check_receiver)
-    .get(api.create_wallet)
-
+    
 };

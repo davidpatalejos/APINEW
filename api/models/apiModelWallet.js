@@ -18,4 +18,4 @@ var WalletSchema = new Schema({
     }
   });
 
-  module.exports = mongoose.model('Wallets', TaskSchema);
+  module.exports = mongoose.model('Wallets', WalletSchema);
