@@ -12,10 +12,10 @@ exports.check_receiver = function(req, res) {
     var new_wallet = new Wallet(req.body);
     new_wallet.save(function(err, balance) {
         //const web3 = new Web3('ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-        balance = web3Obj.eth.getBalance('0xee1769674Ce5f94D43C200138ca4dF9546445DB1').then(console.log);
         if (err)
             res.send(err);
-        res.json({ balance: 'balance cuenta'});
+        var balance = web3Obj.eth.getBalance('0xee1769674Ce5f94D43C200138ca4dF9546445DB1');    
+        res.json({ balance });
     });
 };
 

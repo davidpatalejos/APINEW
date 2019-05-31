@@ -12,10 +12,8 @@ var WalletSchema = new Schema({
       type: Date,
       default: Date.now
     },
-    Info_wallet: {
-      type: String,
-      
-    }
+    Info_wallet: String
+    
   });
 
   module.exports = mongoose.model('Wallets', WalletSchema);

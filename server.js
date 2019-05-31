@@ -26,16 +26,16 @@ app.listen(port);
 
 
 ///////
-var util = require('util');
-var stringify = require('stringify');
-var Web3 = require('web3');
-var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70'));
-balance = web3.eth.accounts.wallet.create(1, '54674321§3456764321§345674321§3453647544±±±§±±±!!!43534534534534');
+//var util = require('util');
+//var stringify = require('stringify');
+//var Web3 = require('web3');
+//var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70'));
+//balance = web3.eth.accounts.wallet.create(1, '54674321§3456764321§345674321§3453647544±±±§±±±!!!43534534534534');
 
-balanceView = util.inspect(balance, false, null);
+//balanceView = util.inspect(balance, false, null);
 //balanceView = JSON.stringify(balance);
 
-console.log('RESTful API server started on: ' + port + ' ' + balanceView);
+console.log('RESTful API server started on: ' + port);
 
 
 
