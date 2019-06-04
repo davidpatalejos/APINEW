@@ -1,29 +1,37 @@
 'use strict';
-
-var Web3 = require('web3');
-var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-var web3Obj = new Web3(web3SocketProvider);
+var util = require('util');
+var stringify = require('stringify');
+var util = require('util')
+//util.inspect()
 
 var mongoose = require('mongoose'),
   Wallet = mongoose.model('Wallets');
 
 //Make wallet
-exports.check_receiver = function(req, res) {
+exports.check_receiver = function(req, res) { 
     var new_wallet = new Wallet(req.body);
-    new_wallet.save(function(err, balance) {
-        //const web3 = new Web3('ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-        if (err)
+    new_wallet.save(function(err, walletNew) {
+        if (err){
             res.send(err);
-        var balance = web3Obj.eth.getBalance('0xee1769674Ce5f94D43C200138ca4dF9546445DB1');    
-        res.json({ balance });
+        } 
+        else {
+            var Web3 = require('web3');
+            var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
+            var web3Obj = new Web3(web3SocketProvider);
+            var walletNew = web3Obj.eth.accounts.create();
+            res.json(util.inspect(walletNew, {showHidden: false, depth: null}));
+        }
     });
 };
 
 exports.list_all_wallets = function(req, res) {
     Wallet.find({}, function(err, balance) {
-        if (err)
+        if (err){
             res.send(err);
-        res.json(balance);
+        } 
+        else {
+            res.json(balance);
+        }
     });
 };
 
