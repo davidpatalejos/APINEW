@@ -1,20 +1,55 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-// var Web3 = require('web3');
-// var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-// var web3Obj = new Web3(web3SocketProvider);
-// var balance = web3Obj.eth.getBalance('0xee1769674Ce5f94D43C200138ca4dF9546445DB1');
+//var api = require('../controllers/apiWalletController');
 
 var WalletSchema = new Schema({
+    Index: {
+      type: Number,
+      
+    },
     Number_wallet: {
-      type: String
+      type: String,
+      required: 'Number of wallets to be created'
+    },
+    Nombre_Propietario: {
+      type : String,
+      required : 'Nombre de la persona dueña'
+    },
+    _Public_Address: { 
+      type: String,
+      //default: addressPublic
+      
+    },
+    _Private_Address: {
+      type: String,
+      //default: addressPrivate
     },
     Created_date: {
       type: Date,
       default: Date.now
     }
   });
+
+// var CounterSchema = Schema({
+//     _id: {type: String, required: true},
+//     seq: { type: Number, default: 0 }
+// });
+// var counter = mongoose.model('counter', CounterSchema);
+
+// var entitySchema = mongoose.Schema({
+//     testvalue: {type: String}
+// });
+
+// entitySchema.pre('save', function(next) {
+//     var doc = this;
+//     counter.findByIdAndUpdate({_id: 'entityId'}, {$inc: { seq: 1} }, function(error, counter)   {
+//         if(error)
+//             return next(error);
+//         doc.testvalue = counter.seq;
+//         next();
+//     });
+// });
+
 
   module.exports = mongoose.model('Wallets', WalletSchema);
