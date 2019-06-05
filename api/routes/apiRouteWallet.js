@@ -8,4 +8,6 @@ module.exports = function(app) {
     .post(api.check_receiver)
     .get(api.list_all_wallets);
 
+  app.route('/checkBalance')
+    .get(api.get_balance_wallets);
 };

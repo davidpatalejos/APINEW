@@ -16,12 +16,12 @@ var WalletSchema = new Schema({
       type : String,
       required : 'Nombre de la persona dueña'
     },
-    _Public_Address: { 
+    Public_Address: { 
       type: String,
       //default: addressPublic
       
     },
-    _Private_Address: {
+    Private_Address: {
       type: String,
       //default: addressPrivate
     },

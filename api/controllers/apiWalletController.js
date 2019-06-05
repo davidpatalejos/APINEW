@@ -25,7 +25,7 @@ exports.check_receiver = function(req, res) {
             var walletNew = web3Obj.eth.accounts.create();
             var addressPublic = walletNew['address'];
             var addressPrivate = walletNew['privateKey'];
-            Wallet({_Public_Address: addressPublic, _Private_Address: addressPrivate});
+            //Wallet._Public_Address = ({addressPublic});
             var objAddresess = {"Public_Address" : addressPublic, "Private_Address": addressPrivate};        
             var walletCreated = Object.assign(walletCreated, objAddresess);
             //res.json(util.inspect(walletNew, {showHidden: false, depth: null}));
@@ -35,17 +35,32 @@ exports.check_receiver = function(req, res) {
 };
 
 exports.list_all_wallets = function(req, res) {
-    Wallet.find({}, function(err, walletCreated) {
+    Wallet.find({}, function(err, walletsCreated) {
         if (err){
             res.send(err);
         } 
         else {
-            res.json(walletCreated);
+            res.json(walletsCreated);
         }
     });
 };
 
 exports.get_balance_wallets = function(req,res){
+    function GetBalanceWallets(err, balance){
+        var arrayAddress = [];
+        var arrayBalances = [];
+        var stringaddress = Wallet.find({addressPublic});
+        for (let i = 0; i < stringaddress.length; i++) {
+            arrayAddress[i];
+            var Web3 = require('web3');
+            var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
+            var web3Obj = new Web3(web3SocketProvider);
+            var balance = web3Obj.eth.getBalance(arrayAddress[i]);
+            arrayBalances[balance]; 
+            
+        }
+        
+    };
 
 };
 
