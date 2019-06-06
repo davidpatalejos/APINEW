@@ -9,5 +9,5 @@ module.exports = function(app) {
     .get(api.list_all_wallets);
 
   app.route('/checkBalance')
-    .get(api.get_balance_wallets);
+    .post(api.get_balance_only);
 };

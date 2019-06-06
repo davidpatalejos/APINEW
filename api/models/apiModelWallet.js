@@ -8,13 +8,17 @@ var WalletSchema = new Schema({
       type: Number,
       
     },
-    Number_wallet: {
+    Number_Wallet_Created: {
       type: String,
-      required: 'Number of wallets to be created'
+      //required: 'Number of wallets to be created'
     },
     Nombre_Propietario: {
       type : String,
-      required : 'Nombre de la persona dueña'
+      //required : 'Nombre de la persona dueña de la wallet'
+    },
+    Created_date: {
+      type: Date,
+      default: Date.now
     },
     Public_Address: { 
       type: String,
@@ -25,11 +29,12 @@ var WalletSchema = new Schema({
       type: String,
       //default: addressPrivate
     },
-    Created_date: {
-      type: Date,
-      default: Date.now
+    Balance: {
+      type:Number
     }
   });
+
+
 
 // var CounterSchema = Schema({
 //     _id: {type: String, required: true},
@@ -50,6 +55,4 @@ var WalletSchema = new Schema({
 //         next();
 //     });
 // });
-
-
   module.exports = mongoose.model('Wallets', WalletSchema);

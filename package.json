@@ -13,7 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ajax": "0.0.4",
     "express": "^4.17.0",
+    "jquery": "^3.4.1",
+    "jsdom": "^15.1.1",
     "mongoose": "^5.5.9",
     "stringify": "^5.2.0",
     "web3": "^1.0.0-beta.55"

@@ -34,9 +34,17 @@ app.listen(port);
 
 //balanceView = util.inspect(balance, false, null);
 //balanceView = JSON.stringify(balance);
-
+/*var Web3 = require('web3');
+var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
+var web3Obj = new Web3(web3SocketProvider);
+var balance = web3Obj.eth.getBalance("0xee1769674Ce5f94D43C200138ca4dF9546445DB1",function(e,r) {
+    console.log(e)
+    console.log(r)
+}) 
+*/
 console.log('RESTful API server started on: ' + port);
 
 
 
 // ----------------------------------------------------------------
+//curl  https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70  -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBalance","params": ["0xee1769674Ce5f94D43C200138ca4dF9546445DB1", "latest"],"id":1}' 
