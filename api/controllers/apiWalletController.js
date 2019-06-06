@@ -8,6 +8,8 @@ const { JSDOM } = jsdom;
 const { window } = new JSDOM();
 const { document } = (new JSDOM('')).window;
 global.document = document;
+//const Etherscan = require('node-etherscan-api')
+//var Etherscan = require('etherscan-api').init('EKXF1IYHC6UVAEMRVCWC6FKITX9WWEQ77R','ropsten', '3000');
 
 var $  = require('jquery')(window);
 //util.inspect()
@@ -43,46 +45,19 @@ exports.check_receiver = function(req, res) {
 
 exports.get_balance_only = function(req, res) {
     const Public_Address = req.body['Public_Address'];
-    /*var new_balance = new Wallet(req.body);
-    var Web3 = require('web3');
-    var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-    var web3Obj = new Web3(web3SocketProvider);
-    //var balances = 
-    web3Obj.eth.getBalance(Public_Address ,function(err,balance) {
-        if(err) {
-            res.send(err)
-        } else {
-            res.json(balance.toString())
-        }
-    });
-    //res.json("");
-
-    
-    //res.json("asdasd")
-    //res.json(balance);
-    //new_balance.Balance = balances;
-    //res.json(Public_Address);
-  /*  new_balance.save(function(err, balance){
-          if(err)
-              res.send(err);
-          else
-              res.json(balance);
-    });*/
-
-
     var settings = {
         "url": "https://ropsten.infura.io",
         "method": "POST",
         "timeout": 0,
         "data": JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_getBalance", params :[Public_Address, 'latest']}),
-      };
-      
+      };  
       $.ajax(settings).done(function (response) {
+        response.result = parseInt(response.result);
         res.json(response);
-      });
-
-
+        });
 };
+
+
 
 
 
@@ -97,46 +72,43 @@ exports.list_all_wallets = function(req, res) {
     });
 };
 
-exports.get_balance_wallets = function(req,res){
-
-    function GetBalanceWallets(err, balance){
-        var arrayAddress = [];
-        var arrayBalances = [];
-        var stringaddress = Wallet.find({addressPublic});
-        for (var i in stringaddress) {
-            arrayAddress[i];
-            var Web3 = require('web3');
-            var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-            var web3Obj = new Web3(web3SocketProvider);
-            var balance = web3Obj.eth.getBalance(arrayAddress[i]);
-            arrayBalances[balance]; 
-            
-        }
-        
-    };
-
+exports.number_transactions_by_account = function(req, res) {
+    const Public_Address = req.body['Public_Address'];
+    var settings = {
+        "url": "https://ropsten.infura.io",
+        "method": "POST",
+        "timeout": 0,
+        "data": JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_getTransactionCount", params :[Public_Address, 'latest']}),
+      };  
+      $.ajax(settings).done(function (response) {
+        response.result = parseInt(response.result);
+        res.json(response);
+        });
 };
 
-exports.read_wallets_balance = function(req, res) {
-    var arrayAddress = [];
-    var arrayBalances = [];
-    var stringaddress = Wallet.find({addressPublic});
-    for (var i in stringaddress) {
-        arrayAddress[i];
-        var Web3 = require('web3');
-        var web3SocketProvider = new Web3.providers.WebsocketProvider('https://ropsten.infura.io/0b0ac1c4525c48d3a26f31b516eabc70');
-        var web3Obj = new Web3(web3SocketProvider);
-        var balance = web3Obj.eth.getBalance(arrayAddress[i]);
-        arrayBalances[balance]; 
-    }
-    Wallet.findById(req.params.walletId, function(err, balance) {
-      if (err)
-        res.send(err);
-      res.json(task);
+
+
+
+exports.list_all_transactions_by_account = function(req, res) {
+    const Public_Address = req.body['Public_Address'];
+
+    // // Replace the value below with the your Etherscan token
+
+    // // Creating the Etherscan instance
+     //const etherscan = new Etherscan('EKXF1IYHC6UVAEMRVCWC6FKITX9WWEQ77R', 'ropsten');
+
+    // // Creating a request for account balance in Ether (default returns in Wei)
+    //var list = etherscan.getTransactions(Public_Address, 1, 'latest', 1, 100, 'asc');
+    var Etherscan = require('etherscan-api').init('YGTAWVMQFAJJ83IY652T3QQ2MBCWS5KZ8E','ropsten', '3000');
+    var txlist = Etherscan.account.txlist(Public_Address, 1, 'latest', 1, 100, 'desc');
+    txlist.then(function(balanceData){
+        res.json(balanceData.result);
     });
-  };
+    
+  //  res.json(txlist);
+};
 
-
+//etherscanApi.getTransactions(address, [options])
 
 
 
