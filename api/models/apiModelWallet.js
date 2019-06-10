@@ -8,13 +8,9 @@ var WalletSchema = new Schema({
       type: Number,
       
     },
-    Number_Wallet_Created: {
-      type: String,
-      //required: 'Number of wallets to be created'
-    },
-    Nombre_Propietario: {
+    User_Id: {
       type : String,
-      //required : 'Nombre de la persona dueña de la wallet'
+      required : 'Numero de id de usuario'
     },
     Created_date: {
       type: Date,

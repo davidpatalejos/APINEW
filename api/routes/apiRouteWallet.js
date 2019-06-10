@@ -4,11 +4,11 @@ module.exports = function(app) {
   var api = require('../controllers/apiWalletController');
 
 
-  app.route('/createWallet')
+  app.route('/CreateWallet')
     .post(api.check_receiver)
     .get(api.list_all_wallets);
 
-  app.route('/checkBalance')
+  app.route('/CheckBalance')
     .post(api.get_balance_only);
 
   app.route('/TransactionsByAccount')

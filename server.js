@@ -7,7 +7,7 @@ Wallet = require('./api/models/apiModelWallet'),
 bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/api');
+//mongoose.connect('mongodb://localhost/api');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));

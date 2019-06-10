@@ -31,16 +31,13 @@ exports.check_receiver = function(req, res) {
     var addressPrivate = walletNew['privateKey'];
     new_wallet.Public_Address = addressPublic;
     new_wallet.Private_Address = addressPrivate;
-    //var objAddresess = {"Public_Address" : addressPublic, "Private_Address": addressPrivate};       
-    new_wallet.save(function(err, walletCreated) {
-        if (err)
-            res.send(err);
-        else
-            //var walletCreated = Object.assign(walletCreated, objAddresess);
+    var objAddresess = {"Public_Address" : addressPublic, "Private_Address": addressPrivate};       
+    //new_wallet.save(function(err, walletCreated) {
+    var walletCreated = Object.assign(new_wallet, objAddresess);
             //res.json(util.inspect(walletNew, {showHidden: false, depth: null}));
             res.json({walletCreated});
         
-    });
+    //});
 };
 
 exports.get_balance_only = function(req, res) {
@@ -53,7 +50,7 @@ exports.get_balance_only = function(req, res) {
       };  
       $.ajax(settings).done(function (response) {
         response.result = parseInt(response.result);
-        res.json(response);
+        res.json(response.result);
         });
 };
 
@@ -82,7 +79,7 @@ exports.number_transactions_by_account = function(req, res) {
       };  
       $.ajax(settings).done(function (response) {
         response.result = parseInt(response.result);
-        res.json(response);
+        res.json(response.result);
         });
 };
 
