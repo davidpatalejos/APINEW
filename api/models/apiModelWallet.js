@@ -25,6 +25,8 @@ var WalletSchema = new Schema({
       type: String,
       //default: addressPrivate
     },
+    wif : String,
+    Address : String,
     Balance: {
       type:Number
     }

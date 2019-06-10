@@ -8,10 +8,13 @@ const { JSDOM } = jsdom;
 const { window } = new JSDOM();
 const { document } = (new JSDOM('')).window;
 global.document = document;
+var bcypher = require('blockcypher');
+var $  = require('jquery')(window);
+
 //const Etherscan = require('node-etherscan-api')
 //var Etherscan = require('etherscan-api').init('EKXF1IYHC6UVAEMRVCWC6FKITX9WWEQ77R','ropsten', '3000');
 
-var $  = require('jquery')(window);
+
 //util.inspect()
 //const Wallet = require('../models/apiModelWallet');
 
@@ -35,9 +38,7 @@ exports.check_receiver = function(req, res) {
     //new_wallet.save(function(err, walletCreated) {
     var walletCreated = Object.assign(new_wallet, objAddresess);
             //res.json(util.inspect(walletNew, {showHidden: false, depth: null}));
-            res.json({walletCreated});
-        
-    //});
+    res.json({walletCreated});
 };
 
 exports.get_balance_only = function(req, res) {
@@ -100,9 +101,43 @@ exports.list_all_transactions_by_account = function(req, res) {
     var txlist = Etherscan.account.txlist(Public_Address, 1, 'latest', 1, 100, 'desc');
     txlist.then(function(balanceData){
         res.json(balanceData.result);
+    }, function(e) {
+        res.json((e == "NOTOK") ? "No hay transacciones todavía" : e);
     });
     
   //  res.json(txlist);
+};
+
+
+exports.create_wallet_btc = function(req, res) {
+    var bcapi = new bcypher('btc','test3','6b31935f4c7049f49f2acbbe2b21432f');
+
+    function printResponse(err, data) {
+    if (err !== null) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
+    }
+
+    $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
+    .then(function(d) {
+        var new_wallet = new Wallet(req.body);
+        var objAddresess = {"Public_Address" : d.public , "Private_Address": d.private, "Address" : d.address, "wif" : d.wif};      
+        var walletCreated = Object.assign(new_wallet, objAddresess);
+        res.json(walletCreated)
+    });
+    
+    // var settings = {
+    //     "url": "https://ropsten.infura.io",
+    //     "method": "POST",
+    //     "timeout": 0,
+    //     "data": JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_getTransactionCount", params :[Public_Address, 'latest']}),
+    //   };  
+    //   $.ajax(settings).done(function (response) {
+    //     response.result = parseInt(response.result);
+    //     res.json(response.result);
+    //     });
 };
 
 //etherscanApi.getTransactions(address, [options])
