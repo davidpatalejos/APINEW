@@ -19,4 +19,7 @@ module.exports = function(app) {
 
   app.route('/CreateBTCWallet')
     .post(api.create_wallet_btc);
+
+  app.route('/TransactionsByAccountBTC')
+    .post(api.list_transactions_btc);
 };

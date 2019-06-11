@@ -127,18 +127,48 @@ exports.create_wallet_btc = function(req, res) {
         var walletCreated = Object.assign(new_wallet, objAddresess);
         res.json(walletCreated)
     });
-    
-    // var settings = {
-    //     "url": "https://ropsten.infura.io",
-    //     "method": "POST",
-    //     "timeout": 0,
-    //     "data": JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_getTransactionCount", params :[Public_Address, 'latest']}),
-    //   };  
-    //   $.ajax(settings).done(function (response) {
-    //     response.result = parseInt(response.result);
-    //     res.json(response.result);
-    //     });
 };
+
+exports.create_wallet_btc = function(req, res) {
+    var bcapi = new bcypher('btc','test3','6b31935f4c7049f49f2acbbe2b21432f');
+
+    function printResponse(err, data) {
+    if (err !== null) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
+    }
+
+    $.post('https://api.blockcypher.com/v1/btc/test3/addrs')
+    .then(function(d) {
+        var new_wallet = new Wallet(req.body);
+        var objAddresess = {"Public_Address" : d.public , "Private_Address": d.private, "Address" : d.address, "wif" : d.wif};      
+        var walletCreated = Object.assign(new_wallet, objAddresess);
+        res.json(walletCreated)
+    });
+};
+
+exports.list_transactions_btc = function(req, res) {
+    var bcapi = new bcypher('btc','test3','6b31935f4c7049f49f2acbbe2b21432f');
+    const Public_Address = req.body['Address'];
+
+    function printResponse(err, data) {
+    if (err !== null) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
+    }
+
+
+    $.get('https://api.blockcypher.com/v1/btc/test3/addrs/'+Public_Address+'/full?after=1')
+    .then(function(d) {
+        res.json(d)
+    });
+};
+
+
 
 //etherscanApi.getTransactions(address, [options])
 
