@@ -19,7 +19,7 @@
     "express": "^4.17.0",
     "jquery": "^3.4.1",
     "jsdom": "^15.1.1",
-    "mongoose": "^5.5.9",
+    "mongoose": "^5.7.5",
     "node-etherscan-api": "^0.1.2",
     "stringify": "^5.2.0",
     "web3": "^1.0.0-beta.55"
